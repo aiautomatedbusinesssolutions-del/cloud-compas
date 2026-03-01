@@ -20,14 +20,14 @@ export default function BacktestPanel({
   onRunBacktest,
 }: BacktestPanelProps) {
   return (
-    <div className="mt-6 rounded-2xl border border-slate-700/50 bg-slate-900/60 p-5">
+    <div className="animate-fade-in mt-6 rounded-2xl border border-slate-700/50 bg-slate-900/60 p-5">
       <h2 className="mb-1 text-lg font-semibold text-slate-100">
         History Check
       </h2>
 
       {/* Error */}
       {error && (
-        <div className="mb-4 rounded-lg border border-rose-500/20 bg-rose-500/10 p-3">
+        <div className="animate-fade-in-fast mb-4 rounded-lg border border-rose-500/20 bg-rose-500/10 p-3">
           <p className="text-sm text-rose-400">{error}</p>
         </div>
       )}
@@ -43,7 +43,7 @@ export default function BacktestPanel({
           <button
             onClick={onRunBacktest}
             disabled={isDemo}
-            className="rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:bg-sky-500 hover:shadow-lg hover:shadow-sky-600/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:shadow-none"
           >
             Run 5-Year Backtest
           </button>
@@ -52,17 +52,36 @@ export default function BacktestPanel({
 
       {/* Loading */}
       {isLoading && (
-        <div className="flex items-center gap-3 py-6">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-sky-400 border-t-transparent" />
-          <p className="text-sm text-slate-400">
-            Crunching up to 5 years of data...
-          </p>
+        <div className="py-6" role="status" aria-live="polite">
+          {/* Skeleton cards */}
+          <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div
+                key={i}
+                className="animate-pulse rounded-xl border border-slate-700/30 bg-slate-800/30 p-4"
+              >
+                <div className="h-3 w-20 rounded bg-slate-700/50" />
+                <div className="mt-3 h-7 w-16 rounded bg-slate-700/40" />
+                <div className="mt-2 h-2.5 w-24 rounded bg-slate-700/30" />
+                <div className="mt-4 space-y-2">
+                  <div className="h-2 w-full rounded bg-slate-700/20" />
+                  <div className="h-2 w-3/4 rounded bg-slate-700/20" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-sky-400 border-t-transparent" />
+            <p className="text-sm text-slate-400">
+              Crunching up to 5 years of data...
+            </p>
+          </div>
         </div>
       )}
 
       {/* Results */}
       {result && !isLoading && (
-        <div className="mt-3 space-y-6">
+        <div className="mt-3 space-y-6 animate-fade-in">
           <p className="text-xs text-slate-500">
             Analyzed {result.totalTradingDays.toLocaleString()} trading days
             ({result.dataStartDate} to {result.dataEndDate})
@@ -71,8 +90,12 @@ export default function BacktestPanel({
           {/* Section A: Zone Time Distribution */}
           <ZoneSection result={result} ticker={ticker} />
 
+          <hr className="border-slate-800" />
+
           {/* Section B: Decision Zone Breakdown */}
           <DecisionZoneSection result={result} />
+
+          <hr className="border-slate-800" />
 
           {/* Section C: Signal Report Card */}
           <SignalReportSection result={result} />
@@ -86,7 +109,7 @@ export default function BacktestPanel({
           {/* Re-run button */}
           <button
             onClick={onRunBacktest}
-            className="rounded-lg border border-slate-600 px-4 py-2 text-xs text-slate-400 transition-colors hover:border-slate-500 hover:text-slate-300"
+            className="rounded-lg border border-slate-600 px-4 py-2 text-xs text-slate-400 transition-all duration-200 hover:border-slate-500 hover:text-slate-300 active:scale-[0.98]"
           >
             Re-run Backtest
           </button>

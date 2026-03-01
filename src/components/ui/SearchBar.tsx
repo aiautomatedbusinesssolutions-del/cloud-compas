@@ -31,16 +31,16 @@ export default function SearchBar({
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter ticker (e.g. AAPL)"
-          className="rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition-colors focus:border-sky-500/50 focus:ring-1 focus:ring-sky-500/25 w-48"
+          className="w-44 sm:w-48 rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all duration-200 focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20 focus:bg-slate-900/80"
         />
         <button
           type="submit"
-          className="rounded-lg bg-sky-500/20 px-4 py-2 text-sm font-medium text-sky-400 transition-colors hover:bg-sky-500/30"
+          className="rounded-lg bg-sky-500/20 px-4 py-2 text-sm font-medium text-sky-400 transition-all duration-200 hover:bg-sky-500/30 active:scale-[0.97]"
         >
           Search
         </button>
       </form>
-      <span className="inline-flex items-center gap-2 rounded-lg bg-sky-500/10 px-3 py-1.5 text-sm text-sky-400">
+      <span className="inline-flex items-center gap-2 rounded-lg bg-sky-500/10 px-3 py-1.5 text-sm text-sky-400 transition-colors duration-300">
         Viewing: {currentTicker}
         {isDemo && (
           <span className="text-xs text-slate-500">(Demo Data)</span>
