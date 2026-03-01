@@ -7,7 +7,7 @@ import CloudLegend from "@/components/ui/CloudLegend";
 import SearchBar from "@/components/ui/SearchBar";
 
 export default function CloudCompassApp() {
-  const { ticker, candles, ichimoku, signal, isLoading, isDemo, loadTicker } =
+  const { ticker, candles, ichimoku, signal, isLoading, isDemo, error, loadTicker } =
     useIchimokuData();
 
   return (
@@ -17,6 +17,12 @@ export default function CloudCompassApp() {
         isDemo={isDemo}
         onSearch={loadTicker}
       />
+
+      {error && (
+        <div className="mb-4 rounded-xl border border-rose-500/20 bg-rose-500/10 p-4">
+          <p className="text-sm text-rose-400">{error}</p>
+        </div>
+      )}
 
       {isLoading ? (
         <div className="flex items-center justify-center py-20">

@@ -123,7 +123,12 @@ export default function IchimokuChart({
       height: window.innerWidth < 640 ? 350 : 500,
       crosshair: { mode: CrosshairMode.Normal },
       rightPriceScale: { borderColor: "#334155" },
-      timeScale: { borderColor: "#334155", timeVisible: false },
+      timeScale: {
+        borderColor: "#334155",
+        timeVisible: false,
+        barSpacing: window.innerWidth < 640 ? 3 : 5,
+        rightOffset: 30,
+      },
       handleScroll: { vertTouchDrag: false },
     });
 
@@ -224,7 +229,21 @@ export default function IchimokuChart({
 
     chart.subscribeCrosshairMove(handleCrosshairMove);
 
+    // Fit all data including Senkou Span future projection
     chart.timeScale().fitContent();
+    // Then scroll to show the last ~120 bars + cloud projection for readability
+    const totalBars = Math.max(
+      candles.length,
+      ichimoku.senkouA.length,
+      ichimoku.senkouB.length
+    );
+    const visibleBars = window.innerWidth < 640 ? 80 : 150;
+    if (totalBars > visibleBars) {
+      chart.timeScale().setVisibleLogicalRange({
+        from: totalBars - visibleBars,
+        to: totalBars + 5,
+      });
+    }
 
     const handleResize = () => {
       if (containerRef.current && chartRef.current) {
