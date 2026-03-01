@@ -1,0 +1,148 @@
+import { CandleData } from "@/types/stock";
+
+// 120 trading days of OHLC data for "DEMO" ticker
+// Narrative: Clean Bullish Breakout
+//   Phase A (Days 1-30):  Downtrend from ~$168 to ~$142
+//   Phase B (Days 31-55): Consolidation/base ~$138-$148
+//   Phase C (Days 56-70): Price enters the cloud (~$148-$155)
+//   Phase D (Days 71-85): Breakout above cloud to ~$165, TK cross
+//   Phase E (Days 86-120): Confirmation uptrend to ~$180
+
+export const MOCK_TICKER = "DEMO";
+
+export const MOCK_CANDLES: CandleData[] = [
+  // ===== PHASE A: DOWNTREND (Days 1-30) =====
+  // Starting around $168, declining to ~$142
+  { time: "2025-06-02", open: 168.50, high: 170.20, low: 166.80, close: 167.30 },
+  { time: "2025-06-03", open: 167.30, high: 168.00, low: 165.10, close: 165.80 },
+  { time: "2025-06-04", open: 165.80, high: 167.40, low: 164.50, close: 166.90 },
+  { time: "2025-06-05", open: 166.90, high: 167.80, low: 164.20, close: 164.60 },
+  { time: "2025-06-06", open: 164.60, high: 165.90, low: 163.00, close: 163.50 },
+  { time: "2025-06-09", open: 163.50, high: 164.80, low: 162.10, close: 162.70 },
+  { time: "2025-06-10", open: 162.70, high: 164.30, low: 161.50, close: 163.80 },
+  { time: "2025-06-11", open: 163.80, high: 164.10, low: 161.00, close: 161.40 },
+  { time: "2025-06-12", open: 161.40, high: 162.50, low: 159.80, close: 160.20 },
+  { time: "2025-06-13", open: 160.20, high: 161.70, low: 158.90, close: 159.50 },
+  { time: "2025-06-16", open: 159.50, high: 160.80, low: 157.60, close: 158.10 },
+  { time: "2025-06-17", open: 158.10, high: 159.40, low: 156.80, close: 157.30 },
+  { time: "2025-06-18", open: 157.30, high: 158.90, low: 156.00, close: 158.40 },
+  { time: "2025-06-19", open: 158.40, high: 159.10, low: 155.70, close: 156.20 },
+  { time: "2025-06-20", open: 156.20, high: 157.60, low: 154.80, close: 155.40 },
+  { time: "2025-06-23", open: 155.40, high: 156.30, low: 153.50, close: 154.00 },
+  { time: "2025-06-24", open: 154.00, high: 155.80, low: 153.10, close: 155.20 },
+  { time: "2025-06-25", open: 155.20, high: 155.90, low: 152.40, close: 152.80 },
+  { time: "2025-06-26", open: 152.80, high: 153.70, low: 151.00, close: 151.50 },
+  { time: "2025-06-27", open: 151.50, high: 152.90, low: 150.20, close: 150.80 },
+  { time: "2025-06-30", open: 150.80, high: 151.60, low: 148.90, close: 149.30 },
+  { time: "2025-07-01", open: 149.30, high: 150.40, low: 147.80, close: 148.20 },
+  { time: "2025-07-02", open: 148.20, high: 149.60, low: 146.50, close: 147.10 },
+  { time: "2025-07-03", open: 147.10, high: 148.30, low: 145.40, close: 145.90 },
+  { time: "2025-07-07", open: 145.90, high: 147.20, low: 144.80, close: 146.60 },
+  { time: "2025-07-08", open: 146.60, high: 147.40, low: 144.00, close: 144.50 },
+  { time: "2025-07-09", open: 144.50, high: 145.80, low: 143.20, close: 143.70 },
+  { time: "2025-07-10", open: 143.70, high: 144.60, low: 141.90, close: 142.40 },
+  { time: "2025-07-11", open: 142.40, high: 144.10, low: 141.50, close: 143.60 },
+  { time: "2025-07-14", open: 143.60, high: 144.30, low: 141.20, close: 141.80 },
+
+  // ===== PHASE B: CONSOLIDATION / BASE (Days 31-55) =====
+  // Sideways chop ~$138-$148, building a base
+  { time: "2025-07-15", open: 141.80, high: 143.20, low: 140.10, close: 140.60 },
+  { time: "2025-07-16", open: 140.60, high: 142.40, low: 139.50, close: 141.80 },
+  { time: "2025-07-17", open: 141.80, high: 143.60, low: 140.80, close: 143.10 },
+  { time: "2025-07-18", open: 143.10, high: 144.50, low: 141.70, close: 142.30 },
+  { time: "2025-07-21", open: 142.30, high: 143.80, low: 140.40, close: 140.90 },
+  { time: "2025-07-22", open: 140.90, high: 142.60, low: 139.20, close: 139.70 },
+  { time: "2025-07-23", open: 139.70, high: 141.30, low: 138.50, close: 140.80 },
+  { time: "2025-07-24", open: 140.80, high: 142.90, low: 140.10, close: 142.50 },
+  { time: "2025-07-25", open: 142.50, high: 144.20, low: 141.60, close: 143.80 },
+  { time: "2025-07-28", open: 143.80, high: 145.10, low: 142.30, close: 142.70 },
+  { time: "2025-07-29", open: 142.70, high: 144.60, low: 141.80, close: 144.20 },
+  { time: "2025-07-30", open: 144.20, high: 145.80, low: 143.10, close: 145.30 },
+  { time: "2025-07-31", open: 145.30, high: 146.40, low: 143.50, close: 144.00 },
+  { time: "2025-08-01", open: 144.00, high: 145.60, low: 142.80, close: 143.20 },
+  { time: "2025-08-04", open: 143.20, high: 144.70, low: 141.90, close: 142.40 },
+  { time: "2025-08-05", open: 142.40, high: 144.30, low: 141.50, close: 143.90 },
+  { time: "2025-08-06", open: 143.90, high: 145.60, low: 143.00, close: 145.10 },
+  { time: "2025-08-07", open: 145.10, high: 146.80, low: 144.20, close: 146.30 },
+  { time: "2025-08-08", open: 146.30, high: 147.50, low: 144.60, close: 145.00 },
+  { time: "2025-08-11", open: 145.00, high: 146.40, low: 143.80, close: 144.20 },
+  { time: "2025-08-12", open: 144.20, high: 145.90, low: 143.40, close: 145.50 },
+  { time: "2025-08-13", open: 145.50, high: 147.20, low: 144.80, close: 146.80 },
+  { time: "2025-08-14", open: 146.80, high: 148.10, low: 145.60, close: 147.40 },
+  { time: "2025-08-15", open: 147.40, high: 148.60, low: 145.90, close: 146.20 },
+  { time: "2025-08-18", open: 146.20, high: 147.80, low: 145.10, close: 147.30 },
+
+  // ===== PHASE C: CLOUD ENTRY (Days 56-70) =====
+  // Price rises from ~$147 into the Kumo cloud (~$148-$155 zone)
+  { time: "2025-08-19", open: 147.30, high: 149.20, low: 146.50, close: 148.80 },
+  { time: "2025-08-20", open: 148.80, high: 150.40, low: 147.90, close: 149.70 },
+  { time: "2025-08-21", open: 149.70, high: 151.30, low: 148.60, close: 150.90 },
+  { time: "2025-08-22", open: 150.90, high: 152.10, low: 149.40, close: 149.80 },
+  { time: "2025-08-25", open: 149.80, high: 151.60, low: 148.90, close: 151.20 },
+  { time: "2025-08-26", open: 151.20, high: 152.80, low: 150.00, close: 152.40 },
+  { time: "2025-08-27", open: 152.40, high: 153.60, low: 150.70, close: 151.10 },
+  { time: "2025-08-28", open: 151.10, high: 153.20, low: 150.50, close: 152.80 },
+  { time: "2025-08-29", open: 152.80, high: 154.50, low: 151.60, close: 153.90 },
+  { time: "2025-09-02", open: 153.90, high: 155.20, low: 152.30, close: 152.70 },
+  { time: "2025-09-03", open: 152.70, high: 154.80, low: 152.00, close: 154.30 },
+  { time: "2025-09-04", open: 154.30, high: 155.60, low: 153.10, close: 153.50 },
+  { time: "2025-09-05", open: 153.50, high: 155.40, low: 152.80, close: 155.10 },
+  { time: "2025-09-08", open: 155.10, high: 156.30, low: 153.40, close: 154.20 },
+  { time: "2025-09-09", open: 154.20, high: 156.80, low: 153.90, close: 156.40 },
+
+  // ===== PHASE D: BREAKOUT (Days 71-85) =====
+  // Decisive move through cloud top, Tenkan crosses above Kijun
+  { time: "2025-09-10", open: 156.40, high: 158.30, low: 155.60, close: 157.90 },
+  { time: "2025-09-11", open: 157.90, high: 159.80, low: 157.10, close: 159.40 },
+  { time: "2025-09-12", open: 159.40, high: 161.20, low: 158.30, close: 160.70 },
+  { time: "2025-09-15", open: 160.70, high: 162.50, low: 159.80, close: 162.10 },
+  { time: "2025-09-16", open: 162.10, high: 163.40, low: 160.50, close: 161.00 },
+  { time: "2025-09-17", open: 161.00, high: 163.80, low: 160.40, close: 163.50 },
+  { time: "2025-09-18", open: 163.50, high: 165.20, low: 162.30, close: 164.80 },
+  { time: "2025-09-19", open: 164.80, high: 166.10, low: 163.50, close: 163.90 },
+  { time: "2025-09-22", open: 163.90, high: 165.70, low: 162.80, close: 165.30 },
+  { time: "2025-09-23", open: 165.30, high: 167.20, low: 164.40, close: 166.80 },
+  { time: "2025-09-24", open: 166.80, high: 168.50, low: 165.60, close: 167.90 },
+  { time: "2025-09-25", open: 167.90, high: 169.30, low: 166.40, close: 166.70 },
+  { time: "2025-09-26", open: 166.70, high: 168.40, low: 165.80, close: 168.10 },
+  { time: "2025-09-29", open: 168.10, high: 169.80, low: 166.90, close: 169.40 },
+  { time: "2025-09-30", open: 169.40, high: 170.60, low: 167.80, close: 168.20 },
+
+  // ===== PHASE E: CONFIRMATION (Days 86-120) =====
+  // Uptrend continues to ~$180 with healthy pullbacks
+  { time: "2025-10-01", open: 168.20, high: 170.40, low: 167.50, close: 170.10 },
+  { time: "2025-10-02", open: 170.10, high: 171.80, low: 168.90, close: 171.40 },
+  { time: "2025-10-03", open: 171.40, high: 172.60, low: 169.80, close: 170.20 },
+  { time: "2025-10-06", open: 170.20, high: 171.50, low: 168.60, close: 169.10 },
+  { time: "2025-10-07", open: 169.10, high: 170.90, low: 168.30, close: 170.60 },
+  { time: "2025-10-08", open: 170.60, high: 172.40, low: 169.70, close: 172.10 },
+  { time: "2025-10-09", open: 172.10, high: 173.80, low: 171.00, close: 173.30 },
+  { time: "2025-10-10", open: 173.30, high: 174.50, low: 171.60, close: 172.00 },
+  { time: "2025-10-13", open: 172.00, high: 173.20, low: 170.40, close: 170.90 },
+  { time: "2025-10-14", open: 170.90, high: 172.80, low: 170.10, close: 172.50 },
+  { time: "2025-10-15", open: 172.50, high: 174.30, low: 171.60, close: 173.80 },
+  { time: "2025-10-16", open: 173.80, high: 175.40, low: 172.70, close: 174.90 },
+  { time: "2025-10-17", open: 174.90, high: 176.10, low: 173.40, close: 173.80 },
+  { time: "2025-10-20", open: 173.80, high: 175.60, low: 173.00, close: 175.20 },
+  { time: "2025-10-21", open: 175.20, high: 176.80, low: 174.10, close: 176.40 },
+  { time: "2025-10-22", open: 176.40, high: 177.60, low: 174.80, close: 175.10 },
+  { time: "2025-10-23", open: 175.10, high: 176.90, low: 174.30, close: 176.60 },
+  { time: "2025-10-24", open: 176.60, high: 178.20, low: 175.50, close: 177.80 },
+  { time: "2025-10-27", open: 177.80, high: 179.10, low: 176.20, close: 176.50 },
+  { time: "2025-10-28", open: 176.50, high: 178.40, low: 175.80, close: 178.10 },
+  { time: "2025-10-29", open: 178.10, high: 179.60, low: 176.90, close: 179.20 },
+  { time: "2025-10-30", open: 179.20, high: 180.80, low: 178.10, close: 178.50 },
+  { time: "2025-10-31", open: 178.50, high: 180.30, low: 177.60, close: 179.90 },
+  { time: "2025-11-03", open: 179.90, high: 181.20, low: 178.40, close: 180.70 },
+  { time: "2025-11-04", open: 180.70, high: 182.10, low: 179.50, close: 179.80 },
+  { time: "2025-11-05", open: 179.80, high: 181.60, low: 178.90, close: 181.30 },
+  { time: "2025-11-06", open: 181.30, high: 182.80, low: 180.20, close: 182.40 },
+  { time: "2025-11-07", open: 182.40, high: 183.50, low: 180.60, close: 181.00 },
+  { time: "2025-11-10", open: 181.00, high: 182.70, low: 179.80, close: 182.30 },
+  { time: "2025-11-11", open: 182.30, high: 183.60, low: 181.10, close: 181.50 },
+  { time: "2025-11-12", open: 181.50, high: 183.20, low: 180.70, close: 182.90 },
+  { time: "2025-11-13", open: 182.90, high: 184.10, low: 181.80, close: 183.70 },
+  { time: "2025-11-14", open: 183.70, high: 185.00, low: 182.50, close: 184.60 },
+  { time: "2025-11-17", open: 184.60, high: 185.80, low: 183.20, close: 183.50 },
+  { time: "2025-11-18", open: 183.50, high: 185.40, low: 182.80, close: 185.10 },
+];
