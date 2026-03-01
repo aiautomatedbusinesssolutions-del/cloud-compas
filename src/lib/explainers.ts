@@ -69,4 +69,24 @@ export const ICHIMOKU_EXPLAINERS: ExplainerContent[] = [
     fullExplainer:
       "The cloud is the shaded zone between Leading Span A and B. When price is above the cloud, the trend is potentially bullish. When below, potentially bearish. When inside the cloud, the market is likely undecided — it's a 'decision zone.' A thicker cloud means stronger potential support or resistance.",
   },
+  {
+    id: "tk-cross",
+    name: "TK Cross",
+    nickname: "The Momentum Shift",
+    color: "text-sky-300",
+    colorHex: "#7dd3fc",
+    oneLiner: "When the Quick Pulse crosses the Backbone — a potential trend change.",
+    fullExplainer:
+      "A TK Cross happens when the Conversion Line (9-day) crosses above or below the Base Line (26-day). Think of it like a speedboat crossing a cargo ship's path — the fast-moving line overtaking the slow one signals a potential shift in momentum. When the Conversion crosses above the Base Line, it's historically a bullish signal (short-term momentum is picking up). When it crosses below, it's potentially bearish. The signal is considered stronger when it happens above the cloud (bullish) or below the cloud (bearish), and weaker when it happens inside the cloud.",
+  },
+  {
+    id: "cloud-thickness",
+    name: "Cloud Thickness",
+    nickname: "The Confidence Meter",
+    color: "text-amber-300",
+    colorHex: "#fcd34d",
+    oneLiner: "A thicker cloud means stronger support or resistance ahead.",
+    fullExplainer:
+      "The distance between Leading Span A and Leading Span B tells you how 'confident' the market's trend is. A thick cloud acts like a wall — price has a harder time breaking through it, making it a stronger support level (below price) or resistance level (above price). A thin cloud is more like a screen door — price can push through more easily, so breakouts through thin clouds are more common but may be less reliable. When you see the cloud getting thicker ahead, it suggests the current trend has strong potential momentum behind it. When it narrows to a pinch point, a big move in either direction could be coming.",
+  },
 ];
