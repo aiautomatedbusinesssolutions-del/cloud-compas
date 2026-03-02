@@ -1,3 +1,9 @@
+export interface MarkerInfo {
+  text: string;
+  color: string;
+  title: string;
+}
+
 export interface TooltipData {
   x: number;
   y: number;
@@ -8,6 +14,7 @@ export interface TooltipData {
   senkouA?: number;
   senkouB?: number;
   chikou?: number;
+  markers?: MarkerInfo[];
 }
 
 interface ExplainerTooltipProps {
@@ -119,6 +126,22 @@ export default function ExplainerTooltip({
           </div>
         )}
       </div>
+
+      {data.markers && data.markers.length > 0 && (
+        <div className="mt-2 space-y-1.5 border-t border-slate-800 pt-2">
+          {data.markers.map((m, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <span
+                className="mt-0.5 inline-block h-2.5 w-2.5 shrink-0 rounded-sm"
+                style={{ backgroundColor: m.color }}
+              />
+              <span className="text-xs text-slate-200 leading-snug">
+                {m.title}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {hint && (
         <p className="mt-2 text-xs text-slate-400 border-t border-slate-800 pt-2 italic">

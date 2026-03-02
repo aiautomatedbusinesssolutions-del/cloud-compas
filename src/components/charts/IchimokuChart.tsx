@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import {
   createChart,
   ColorType,
@@ -9,11 +9,13 @@ import {
   LineSeries,
   AreaSeries,
   LineStyle,
+  createSeriesMarkers,
   type IChartApi,
   type ISeriesApi,
   type SeriesType,
 } from "lightweight-charts";
 import { CandleData, IchimokuData } from "@/types/stock";
+import { type ChartMarker } from "@/lib/annotations";
 import ExplainerTooltip, {
   type TooltipData,
 } from "@/components/ui/ExplainerTooltip";
@@ -21,6 +23,7 @@ import ExplainerTooltip, {
 interface IchimokuChartProps {
   candles: CandleData[];
   ichimoku: IchimokuData;
+  markers?: ChartMarker[];
 }
 
 function getSeriesValue(
@@ -57,6 +60,7 @@ function getCandleOHLC(
 export default function IchimokuChart({
   candles,
   ichimoku,
+  markers = [],
 }: IchimokuChartProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,6 +75,17 @@ export default function IchimokuChart({
   } | null>(null);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
+  // Build a lookup map: date → marker info for the tooltip
+  const markersByDate = useMemo(() => {
+    const map = new Map<string, { text: string; color: string; title: string }[]>();
+    for (const m of markers) {
+      const key = String(m.time);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push({ text: m.text, color: m.color, title: m.title });
+    }
+    return map;
+  }, [markers]);
+
   const handleCrosshairMove = useCallback(
     (param: { time?: unknown; point?: { x: number; y: number }; seriesData: Map<ISeriesApi<SeriesType>, unknown> }) => {
       if (
@@ -84,20 +99,22 @@ export default function IchimokuChart({
         return;
       }
 
+      const dateStr = String(param.time);
       const s = seriesRef.current;
       setTooltip({
         x: param.point.x,
         y: param.point.y,
-        date: String(param.time),
+        date: dateStr,
         ohlc: getCandleOHLC(param, s.candle),
         tenkan: getSeriesValue(param, s.tenkan),
         kijun: getSeriesValue(param, s.kijun),
         senkouA: getSeriesValue(param, s.spanA),
         senkouB: getSeriesValue(param, s.spanB),
         chikou: getSeriesValue(param, s.chikou),
+        markers: markersByDate.get(dateStr),
       });
     },
-    []
+    [markersByDate]
   );
 
   useEffect(() => {
@@ -179,6 +196,11 @@ export default function IchimokuChart({
         close: c.close,
       }))
     );
+
+    // Chart annotations (TK crosses, breakouts, alignments)
+    if (markers.length > 0) {
+      createSeriesMarkers(candleSeries, markers);
+    }
 
     // Tenkan-sen (sky-400)
     const tenkanSeries = chart.addSeries(LineSeries, {
@@ -262,7 +284,7 @@ export default function IchimokuChart({
         seriesRef.current = null;
       }
     };
-  }, [candles, ichimoku, handleCrosshairMove]);
+  }, [candles, ichimoku, markers, handleCrosshairMove]);
 
   return (
     <div
