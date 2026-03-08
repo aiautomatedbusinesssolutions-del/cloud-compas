@@ -74,6 +74,7 @@ export default function IchimokuChart({
     chikou: ISeriesApi<SeriesType>;
   } | null>(null);
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
+  const [containerWidth, setContainerWidth] = useState(800);
 
   // Build a lookup map: date → marker info for the tooltip
   const markersByDate = useMemo(() => {
@@ -286,6 +287,19 @@ export default function IchimokuChart({
     };
   }, [candles, ichimoku, markers, handleCrosshairMove]);
 
+  // Track wrapper width in state so we don't read the ref during render
+  useEffect(() => {
+    const el = wrapperRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(entry.contentRect.width);
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div
       ref={wrapperRef}
@@ -293,7 +307,7 @@ export default function IchimokuChart({
     >
       <ExplainerTooltip
         data={tooltip}
-        containerWidth={wrapperRef.current?.clientWidth ?? 800}
+        containerWidth={containerWidth}
       />
       <div ref={containerRef} />
     </div>
